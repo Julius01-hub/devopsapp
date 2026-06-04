@@ -5,3 +5,4 @@ node_modules/
 .terraform.lock.hcl
 *.tfvars
 ...d
+..f
