@@ -1,0 +1,21 @@
+# Service to expose the Deployment.
+# selector matches the deployment pod label: app=landmark-app
+# LoadBalancer type provisions an external NLB on AWS.
+apiVersion: v1
+kind: Service
+metadata:
+  name: landmark-app-service
+  namespace: landmark
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "external"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-05db722471a45972d,subnet-068f0fc1a5db1bfbb"
+spec:
+  type: LoadBalancer
+  selector:
+    app: landmark-app
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
